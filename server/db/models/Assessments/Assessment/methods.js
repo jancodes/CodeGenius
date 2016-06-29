@@ -1,6 +1,5 @@
 'use strict';
-var crypto = require( 'crypto' );
-var _ = require( 'lodash' );
+
 var Sequelize = require( 'sequelize' );
 
 /** Assessment methods */
@@ -24,8 +23,12 @@ function addAssociations( db ) {
   const UserOrganization = db.models[ 'userOrganization' ];
   const Assessment = db.models[ 'assessment' ];
   const Question = db.models[ 'question' ];
+  const StudentTest = db.models[ 'studentTest' ];
+  const Repo = db.models[ 'repo' ];
 
   Assessment.belongsTo( User, {as: 'instructor'} );
+  Assessment.belongsToMany( User, {through: StudentTest, as: 'student'});
   Assessment.belongsTo( Team );
+  Assessment.belongsToMany( Repo, {through: StudentTest} )
   Assessment.hasMany( Question );
 }

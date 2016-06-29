@@ -42,27 +42,14 @@ module.exports = {
 };
 
 function addAssociations( db ) {
-  const Team = db.models[ 'team' ];
-  const Organization = db.models[ 'organization' ];
+
+
   const User = db.models[ 'user' ];
-  const UserTeam = db.models[ 'userTeam' ];
-  const UserOrganization = db.models[ 'userOrganization' ];
-  const Annotation = db.models[ 'annotation' ];
+  const Repo = db.models[ 'repo' ];
   const StudentTest = db.models[ 'studentTest' ];
   const Assessment = db.models[ 'assessment' ];
-  const UserAssessment = db.models[ 'userAssessment' ];
-  const Repo = db.models[ 'repo' ];
 
-  User.belongsToMany( Team, {
-    through: UserTeam
-  } );
-  User.belongsToMany( Organization, {
-    through: UserOrganization
-  } );
-  User.hasMany( Annotation, {foreignKey: 'creatorId'} );
-  User.hasMany( StudentTest, {foreignKey: 'studentId'} );
-  User.belongsToMany( Assessment, { through: StudentTest } );
-
-  User.belongsToMany( Repo, {through: StudentTest} );
+  Repo.belongsToMany( User, {through: StudentTest} );
+  Repo.belongsToMany( Assessment, {through: StudentTest} );
 
 }

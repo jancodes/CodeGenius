@@ -6,8 +6,5 @@ var Sequelize = require( 'sequelize' );
 /** Rubric definitions */
 module.exports = function(db){
     return {
-      repoUrl: {
-        type: Sequelize.TEXT
-      }
     }
 }
